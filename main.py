@@ -4,6 +4,8 @@ import time
 from lxml import etree
 import logging
 import threading
+import json
+import jsonpath
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(message)s')
 logging.disable()
 
@@ -65,7 +67,7 @@ def main():
                 if flag[i] == 1:
                     useful += 1
                     f.write("IP地址:" + '%-18s' % ip[i] + "端口:" + '%-6s' % port[i] + "协议:" + '%-9s' % protocol[i] +
-                            "地址:" + '%-25s' % address[i] + "匿名:" + '%-10s' % anonymity[i] + "\n")
+                            "匿名:" + '%-10s' % anonymity[i] + "地址:" + '%-30s' % str(ipinfo(ip[i])) + "\n")
             f.close()
     print('\n')
     print(f"{number}个IP检测完毕,抓取到可用IP{useful}个")
@@ -86,6 +88,19 @@ def check(i, flag, ip, port, headers, protocol):
         flag[i] = 1
     except Exception:
         pass
+
+
+def ipinfo(ip):
+    url = "https://zj.v.api.aa1.cn/api/chinaip/?ip="
+    req = requests.get(url + ip)
+    req.encoding = "utf-8"
+    data = json.loads(req.text)
+    # print(json.dumps(data, sort_keys=True, indent=2))
+    province = jsonpath.jsonpath(data, "$..Province")
+    city = jsonpath.jsonpath(data, "$..City")
+    isp = jsonpath.jsonpath(data, "$..isp")
+    district = jsonpath.jsonpath(data, "$..District")
+    return [province[0], city[0], district[0], isp[0]]
 
 
 if __name__ == "__main__":
