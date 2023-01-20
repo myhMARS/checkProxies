@@ -45,7 +45,6 @@ def main():
         e = etree.HTML(page.text)
         ip = e.xpath("//table[3]/tbody/tr/td[1]/text()")
         port = e.xpath("//table[3]/tbody/tr/td[2]/text()")
-        address = e.xpath("//table[3]/tbody/tr/td[4]/text()")
         # 使用xpath的//text方法提取协议及匿名度
         protocol = e.xpath("//tbody/tr/td[5]//text()")
         anonymity = e.xpath("//tbody/tr/td[6]//text()")
@@ -54,7 +53,7 @@ def main():
         flag = [0]*ip_num
         j = 0
         threads = []
-        for i, p, ad, pr, an in zip(ip, port, address, protocol, anonymity):
+        for i, p, pr, an in zip(ip, port, protocol, anonymity):
             thread_obj = threading.Thread(target=check, args=(j, flag, i, p, headers, pr))
             threads.append(thread_obj)
             thread_obj.start()
@@ -92,6 +91,7 @@ def check(i, flag, ip, port, headers, protocol):
 
 def ipinfo(ip):
     url = "https://zj.v.api.aa1.cn/api/chinaip/?ip="
+    # 感谢夏柔api提供的api服务  https://api.aa1.cn/
     req = requests.get(url + ip)
     req.encoding = "utf-8"
     data = json.loads(req.text)
