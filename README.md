@@ -12,7 +12,9 @@ pip install -r requirement.txt
 ```
 python main.py
 ```
-程序运行后将在目录下生成一个对应txt文件包含获得的ip
+程序运行后将在目录下生成一个对应txt文件包含获得的IP
+
+中国境内IP支持具体位置查询
 
 ```angular2html
 python choose_country.py
