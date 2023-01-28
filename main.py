@@ -10,11 +10,24 @@ logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(message)s')
 logging.disable()
 
 
-def main():
-    url = "https://freeproxyupdate.com/china-cn"
+global country, ip_flag, check_url, headers
+
+
+def setting():
+    global country, ip_flag, check_url, headers
+    # 如需访问google可更改check_url为谷歌网址
+    # check_url = "https://wwww.google.com"
+    check_url = "https://www.baidu.com"
+    # ip_flag用于开启ip位置查询服务，目前仅支持中国地区查询非中国区域请设置为False
+    ip_flag = True
+    country = "/china-cn"
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
     }
+
+
+def main():
+    url = f"https://freeproxyupdate.com{country}"
     # 连接代理池
     print('连接代理池......')
     try:
@@ -54,7 +67,7 @@ def main():
         j = 0
         threads = []
         for i, p, pr, an in zip(ip, port, protocol, anonymity):
-            thread_obj = threading.Thread(target=check, args=(j, flag, i, p, headers, pr))
+            thread_obj = threading.Thread(target=check, args=(j, flag, i, p, pr))
             threads.append(thread_obj)
             thread_obj.start()
             j += 1
@@ -72,8 +85,7 @@ def main():
     print(f"{number}个IP检测完毕,抓取到可用IP{useful}个")
 
 
-def check(i, flag, ip, port, headers, protocol):
-    url = 'https://www.baidu.com/'
+def check(i, flag, ip, port, protocol):
     proxies = dict()
     if protocol != 'http' and protocol != "https":
         proxies['http'] = f'{protocol}://{ip}:{port}'
@@ -83,13 +95,15 @@ def check(i, flag, ip, port, headers, protocol):
         proxies['https'] = f'{ip}:{port}'
     requests.packages.urllib3.disable_warnings()
     try:
-        requests.get(url, proxies=proxies, verify=False, headers=headers, timeout=5)
+        requests.get(check_url, proxies=proxies, verify=False, headers=headers, timeout=5)
         flag[i] = 1
     except Exception:
         pass
 
 
 def ipinfo(ip):
+    if not ip_flag:
+        return country[1:]
     url = "https://zj.v.api.aa1.cn/api/chinaip/?ip="
     # 感谢夏柔api提供的api服务  https://api.aa1.cn/
     req = requests.get(url + ip)
@@ -104,4 +118,5 @@ def ipinfo(ip):
 
 
 if __name__ == "__main__":
+    setting()
     main()
