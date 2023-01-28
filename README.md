@@ -1,6 +1,5 @@
 # checkProxies
-获取代理
-通过python爬虫的方式爬取socks4\socks5\http\https的代理并进行检测是否可用
+获取代理，通过python爬虫的方式爬取socks4\socks5\http\https的代理并进行检测是否可用
 ## 环境配置
 ```angular2html
 pip install -r requirement.txt
