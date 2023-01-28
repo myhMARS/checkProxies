@@ -21,8 +21,9 @@ def main():
     urls = e.xpath("//body/div[4]/div/div/ul/li/a/@href")
     countries = e.xpath("//body/div[4]/div/div/ul/li/a//text()")
     print("获取成功")
-    choose = input("选择国家方式:\n1.模糊搜索\n2.列表选取\nchoose:")
+    choose = input("选择国家方式:\n1.模糊搜索（未完成）\n2.列表选取\nchoose:")
     if choose == '1':
+        # TODO: 模糊搜索demo(未完成)
         os.system('cls')
         country = input("输入国名(英语):")
         res = difflib.get_close_matches(country, countries, 4, cutoff=0.6)
