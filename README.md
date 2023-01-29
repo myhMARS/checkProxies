@@ -21,11 +21,8 @@ python choose_country.py
 ### To-do List
 - [x] choose_country.py
   - [x] 支持从列表中筛选国家
-  - [ ] 支持模糊搜索国家
-  - [ ] 支持直接对 *main.py* 自动完成修改
-# 注意
-**筛选国家完毕后按照提示对 _main.py_ 文件进行修改,修改部分为 _setting_ 函数部分**
+  - [x] 支持模糊搜索国家
+  - [x] 支持直接对 *main.py* 自动完成修改
 
-**未来可能支持自动完成修改**
 
 
