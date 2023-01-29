@@ -1,11 +1,13 @@
-import requests
-import sys
-import time
-from lxml import etree
-import logging
-import threading
 import json
+import logging
+import sys
+import threading
+import time
+
 import jsonpath
+import requests
+from lxml import etree
+
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s - %(message)s')
 logging.disable()
 
@@ -16,11 +18,10 @@ global country, ip_flag, check_url, headers
 def setting():
     global country, ip_flag, check_url, headers
     # 如需访问google可更改check_url为谷歌网址
-    # check_url = "https://wwww.google.com"
     check_url = "https://www.baidu.com"
     # ip_flag用于开启ip位置查询服务，目前仅支持中国地区查询非中国区域请设置为False
     ip_flag = True
-    country = "/china-cn"
+    country = '/china-cn'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
     }
