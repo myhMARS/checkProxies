@@ -22,7 +22,7 @@ python choose_country.py
 - [x] choose_country.py
   - [x] 支持从列表中筛选国家
   - [x] 支持模糊搜索国家
-  - [x] 支持直接对 *main.py* 自动完成修改
+  - [x] 支持直接对 *main.py* 自动完成修改 
 
 
 
