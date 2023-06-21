@@ -57,11 +57,11 @@ def main():
             continue
         page.encoding = 'utf-8'
         e = etree.HTML(page.text)
-        ip = e.xpath("//table[3]/tbody/tr/td[1]/text()")
-        port = e.xpath("//table[3]/tbody/tr/td[2]/text()")
+        ip = e.xpath("//table/tbody/tr/td[1]/text()")
+        port = e.xpath("//table/tbody/tr/td[2]/text()")
         # 使用xpath的//text方法提取协议及匿名度
-        protocol = e.xpath("//tbody/tr/td[5]//text()")
-        anonymity = e.xpath("//tbody/tr/td[6]//text()")
+        protocol = e.xpath("///table/tbody/tr/td[4]//text()")
+        anonymity = e.xpath("//tbody/tr/td[5]//text()")
         # 多线程处理
         ip_num = len(ip)
         flag = [0]*ip_num
@@ -107,9 +107,15 @@ def ipinfo(ip):
         return country[1:]
     url = "https://zj.v.api.aa1.cn/api/chinaip/?ip="
     # 感谢夏柔api提供的api服务  https://api.aa1.cn/
-    req = requests.get(url + ip)
-    req.encoding = "utf-8"
-    data = json.loads(req.text)
+    while True:
+        req = requests.get(url + ip)
+        req.encoding = "utf-8"
+        try:
+            data = json.loads(req.text)
+            break
+        except:
+            time.sleep(0.1)
+            continue
     # print(json.dumps(data, sort_keys=True, indent=2))
     province = jsonpath.jsonpath(data, "$..Province")
     city = jsonpath.jsonpath(data, "$..City")
