@@ -21,8 +21,8 @@ def main():
         sys.exit()
     req.encoding = 'utf-8'
     e = etree.HTML(req.text)
-    urls = e.xpath("//body/div[4]/div/div/ul/li/a/@href")
-    countries = e.xpath("//body/div[4]/div/div/ul/li/a//text()")
+    urls = e.xpath('//*[@id="side-column"]/div/ul/li/a/@href')
+    countries = e.xpath('//*[@id="side-column"]/div/ul/li/a/text()')
     print("获取成功")
     choose = input("选择国家方式:\n1.模糊搜索\n2.列表选取\nchoose:")
     # 模糊搜索
