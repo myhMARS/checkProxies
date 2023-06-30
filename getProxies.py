@@ -98,7 +98,7 @@ class Proxies:
                     self.useful += 1
                     f.write("IP地址:" + '%-18s' % self.ip[i] + "端口:" + '%-6s' % self.port[i] + "协议:" + '%-9s' %
                             self.protocol[i] + "匿名:" + '%-10s' % self.anonymity[i] + "地址:" + '%-30s' %
-                            str(self.ip_info(str(self.ip[i]))) + "\n")
+                            str(self.__ip_info(str(self.ip[i]))) + "\n")
 
     def list_output(self):
         res = []
@@ -156,7 +156,7 @@ class Proxies:
                     return
         print('修改完成')
 
-    def ip_info(self, ip):
+    def __ip_info(self, ip):
         if not self.ip_flag:
             return self.country[1:]
         url = "https://zj.v.api.aa1.cn/api/chinaip/?ip="
