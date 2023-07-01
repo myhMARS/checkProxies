@@ -167,7 +167,7 @@ class Proxies:
             data = json.loads(req.text)
         except:
             time.sleep(0.5)
-            return self.ip_info(ip)
+            return self.__ip_info(ip)
         # print(json.dumps(data, sort_keys=True, indent=2))
         province = jsonpath.jsonpath(data, "$..Province")
         city = jsonpath.jsonpath(data, "$..City")
